@@ -122,7 +122,7 @@
     }
 
     /* Mobile nav */
-    @media (max-width: 800px) {
+    @media (max-width: 1100px) {
       .nav-links { display: none; }
       .nav-burger { display: flex; }
       nav.open .nav-links {
@@ -130,10 +130,11 @@
         flex-direction: column;
         position: absolute;
         top: var(--nav-h); left: 0; right: 0;
-        background: rgba(30, 61, 47, 0.98);
+        background: rgba(0,0,0,0.98);
         padding: 1.5rem 2rem;
         gap: 1.2rem;
         border-bottom: 1px solid rgba(212,196,160,0.2);
+        z-index: 200;
       }
     }
 
