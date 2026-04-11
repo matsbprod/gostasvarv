@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bildgalleri – Kulturföreningen Gösta Johanssons Varv</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pine:  #0a0a08;
+      --sand:  #d4c4a0;
+      --sand-lt: #ede4cf;
+      --rust:  #a0522d;
+      --rust-lt: #c8733d;
+      --green: #c8d8b0;
+      --ink:   #1a1a18;
+      --nav-h: 320px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Serif 4', serif; background: var(--green); color: var(--ink); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(0,0,0,0.97);
+      display: flex; align-items: KEEP; justify-content: space-between;
+      padding: 0 2.5rem;
+      border-bottom: 1px solid rgba(212,196,160,0.15);
+    }
+    .nav-logo { text-decoration: none; display: flex; align-items: KEEP; }
+    .nav-logo img { height: 308px; width: auto; display: block; filter: invert(1) brightness(2); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: KEEP; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace; font-size: 1.4rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--sand); text-decoration: none;
+      padding: 0.25rem 0; border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--sand-lt); border-bottom-color: var(--rust-lt); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-burger span { display: block; width: 26px; height: 2px; background: var(--sand); }
+    @media (max-width: 800px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      nav.open .nav-links {
+        display: flex; flex-direction: column; position: absolute;
+        top: var(--nav-h); left: 0; right: 0;
+        background: rgba(0,0,0,0.98); padding: 1.5rem 2rem; gap: 1.2rem;
+      }
+    }
+
+    /* MAIN */
+    main { margin-top: var(--nav-h); padding: 5rem 2.5rem 6rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    main { margin-top: var(--nav-h); }
+
+    .page-header { padding: 4rem 2.5rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rust); margin-bottom: 1rem;
+      display: flex; align-items: KEEP; gap: 0.7rem;
+    }
+    .section-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--rust); }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+    .subtitle { font-size: 1rem; color: var(--ink); opacity: 0.6; margin-bottom: 3rem; }
+
+    /* GALLERY GRID */
+    .gallery {
+      max-width: 1200px; margin: 0 auto; padding: 0 2.5rem 6rem;
+      columns: 3; column-gap: 6px;
+    }
+    @media (max-width: 900px) { .gallery { columns: 2; } }
+    @media (max-width: 500px) { .gallery { columns: 1; } }
+
+    .gallery-item {
+      break-inside: avoid; margin-bottom: 6px;
+      cursor: zoom-in; overflow: hidden; display: block;
+      background: var(--pine);
+    }
+    .gallery-item img {
+      width: 100%; height: auto; display: block;
+      transition: transform 0.4s, opacity 0.2s;
+      filter: sepia(0.1) contrast(1.03);
+    }
+    .gallery-item:hover img { transform: scale(1.03); opacity: 0.9; filter: sepia(0) contrast(1.05); }
+
+    /* LIGHTBOX */
+    .lb-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.93); align-items: KEEP; justify-content: center; cursor: zoom-out;
+    }
+    .lb-overlay.active { display: flex; }
+    .lb-inner { position: relative; max-width: 92vw; max-height: 92vh; cursor: default; }
+    .lb-inner img { max-width: 92vw; max-height: 92vh; object-fit: contain; display: block; box-shadow: 0 20px 80px rgba(0,0,0,0.8); }
+    .lb-close {
+      position: fixed; top: 1.5rem; right: 1.5rem; width: 44px; height: 44px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: white; font-size: 1.4rem; line-height: 44px; text-align: center;
+      cursor: pointer; transition: background 0.2s; z-index: 1001;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.25); }
+    .lb-prev, .lb-next {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: white; font-size: 1.8rem; width: 52px; height: 72px;
+      cursor: pointer; display: flex; align-items: KEEP; justify-content: center;
+      transition: background 0.2s; z-index: 1001;
+    }
+    .lb-prev { left: 1rem; } .lb-next { right: 1rem; }
+    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.25); }
+    .lb-counter {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.45); text-transform: uppercase;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex; align-items: KEEP; gap: 0.5rem;
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--rust); text-decoration: none;
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { color: var(--rust-lt); }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-logo" href="./index.html">
+    <img src="./images/logo.png" alt="Kulturföreningen Gösta Johanssons Varv">
+  </a>
+  <button class="nav-burger" id="burger" aria-label="Meny"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="./index.html#hero">Hem</a></li>
+    <li><a href="./index.html#aktiviteter">Aktuellt</a></li>
+    <li><a href="./index.html#bildgalleri">Tidigare aktiviteter</a></li>
+    <li><a href="./index.html#arbetsgrupper">Arbetsgrupper</a></li>
+    <li><a href="./index.html#jump">Bli Medlem</a></li>
+    <li><a href="./index.html#klinkbat">Klinkbåtsutställning</a></li>
+    <li><a href="./bildgalleri.html" class="active">Bildgalleri</a></li>
+    <li><a href="./index.html#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<div class="page-header" style="margin-top: var(--nav-h);">
+  <a href="./index.html" class="back-link">← Tillbaka till startsidan</a>
+  <div class="section-label">Bilder från varvet</div>
+  <h1>Bildgalleri</h1>
+  <p class="subtitle">Öppet Varv och aktiviteter — klicka på en bild för att förstora</p>
+</div>
+
+<div class="gallery" id="gallery">
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/972c608d-041c-4ea9-8595-9ade3b6a2276/O%CC%88ppet+varv++250823++34_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/cb454a8b-37fe-422d-9cb1-553c4d01992b/O%CC%88ppet+varv++250822++11_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/5d24da72-8216-4c74-86a2-fd0b04db61f6/O%CC%88ppet+varv++250824++79_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/556a714b-ac77-431f-81e5-bb049e8ebfea/O%CC%88ppet+varv++250824++70_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/64a93c33-90f6-4f67-8a57-c11c9144cb7f/O%CC%88ppet+varv++250823++26_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/2d9ed52f-466a-4a33-a342-bb0fff1fb987/O%CC%88ppet+varv++250823++32_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/0b422efe-6f5d-4bcb-9376-827a8cd804af/O%CC%88ppet+varv++250823++31_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/1561dd48-c79f-48a4-87e3-5fdc82b3438f/O%CC%88ppet+varv++250824++62_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/3a264bf0-e482-4760-bdde-1313918852fe/O%CC%88ppet+varv++250823++47_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/1a5a870e-7e56-4389-a9cb-c15e9a9d8bd4/O%CC%88ppet+varv++250823++17_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/d74a4b90-d902-40c0-a9de-32e118bc4d25/O%CC%88ppet+varv++250822++4_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/296bb5df-88cd-4a81-a120-62c7d2d6494f/O%CC%88ppet+varv++250823++22_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/8cb82161-d5cc-4ca5-993b-8679876a9a49/O%CC%88ppet+varv++250824++81_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/c3995265-1159-4777-b5ab-cf169665bedf/O%CC%88ppet+varv++250822++2_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <div class="gallery-item"><img src="https://images.squarespace-cdn.com/content/v1/642f315a4290f847fc6e84d6/66912c9f-dab0-49cd-88aa-98c68084209c/O%CC%88ppet+varv++250823++24_2+resized.jpg?format=1500w" alt="Öppet Varv 2025" loading="lazy"></div>
+  <!-- Local images as additional content -->
+  <div class="gallery-item"><img src="./images/gostasvarv_029_98fcbde7.jpg" alt="Varvet" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_037_0d2f8902.jpg" alt="Varvet" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_110_9aa3a7f8.jpg" alt="Varvet" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_016_65ec42f9.jpg" alt="Varvet" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_053_daaf90db.jpg" alt="Varvet" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_059_13920f3f.jpg" alt="Polstjernan" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_024_c7772581.jpg" alt="Varvet" loading="lazy"></div>
+  <div class="gallery-item"><img src="./images/gostasvarv_027_bcb7efbc.jpg" alt="Varvet" loading="lazy"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lb-overlay">
+  <button class="lb-close" id="lb-close">✕</button>
+  <button class="lb-prev" id="lb-prev">&#8249;</button>
+  <div class="lb-inner"><img id="lb-img" src="" alt=""></div>
+  <button class="lb-next" id="lb-next">&#8250;</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<script>
+  // Mobile nav
+  document.getElementById('burger').addEventListener('click', () => {
+    document.getElementById('main-nav').classList.toggle('open');
+  });
+
+  // Lightbox
+  const items   = Array.from(document.querySelectorAll('.gallery-item img'));
+  const overlay = document.getElementById('lb-overlay');
+  const lbImg   = document.getElementById('lb-img');
+  const lbCtr   = document.getElementById('lb-counter');
+  let current   = 0;
+
+  function show(idx) {
+    current = (idx + items.length) % items.length;
+    lbImg.src = items[current].src;
+    lbImg.alt = items[current].alt;
+    lbCtr.textContent = (current + 1) + ' / ' + items.length;
+  }
+
+  document.getElementById('gallery').addEventListener('click', e => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    show(items.indexOf(item.querySelector('img')));
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function close() { overlay.classList.remove('active'); document.body.style.overflow = ''; lbImg.src = ''; }
+  document.getElementById('lb-close').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); show(current - 1); });
+  document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); show(current + 1); });
+  document.addEventListener('keydown', e => {
+    if (!overlay.classList.contains('active')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+</script>
+</body>
+</html>
