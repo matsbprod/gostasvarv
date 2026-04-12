@@ -123,8 +123,10 @@
 
     /* Mobile nav */
     @media (max-width: 1100px) {
+      :root { --nav-h: 100px; }
       .nav-links { display: none; }
       .nav-burger { display: flex; }
+      .nav-logo img { height: 80px; }
       nav.open .nav-links {
         display: flex;
         flex-direction: column;
@@ -136,6 +138,15 @@
         border-bottom: 1px solid rgba(212,196,160,0.2);
         z-index: 200;
       }
+      .nav-burger {
+        display: flex;
+        padding: 12px;
+      }
+      .nav-burger span {
+        width: 34px;
+        height: 3px;
+      }
+      .nav-links a { font-size: 1.1rem; }
     }
 
     /* ── HERO ─────────────────────────────────────────── */
