@@ -95,7 +95,7 @@
 
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       list-style: none;
       align-items: center;
     }
@@ -121,8 +121,14 @@
       transition: all 0.3s;
     }
 
+
+    /* Desktop nav font size - prevents wrapping at 125% Windows scaling */
+    @media (min-width: 1601px) {
+      .nav-links a { font-size: 1.4rem; }
+      .nav-links { gap: 1.8rem; }
+    }
     /* Mobile nav */
-    @media (max-width: 1400px) {
+    @media (max-width: 1600px) {
       :root { --nav-h: 100px; }
       .nav-links { display: none; }
       .nav-burger { display: flex; }
@@ -146,7 +152,7 @@
         width: 34px;
         height: 3px;
       }
-      .nav-links a { font-size: 1.1rem; }
+      .nav-links a { font-size: 0.85rem; letter-spacing: 0.06em; }
       .section-inner { padding: 0 1.2rem; }
     }
 
@@ -962,12 +968,6 @@
     <li><a href="#klinkbat">Klinkbåtsutställning</a></li>
     <li><a href="./bildgalleri.html">Bildgalleri</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
-    <li>
-      <a href="https://www.facebook.com/p/G%C3%B6stas-Varv-100092439351959/" target="_blank" rel="noopener"
-         style="display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border:1px solid rgba(212,196,160,0.4); color:var(--sand); text-decoration:none; font-family:sans-serif; font-size:1rem; font-weight:700; transition:border-color 0.2s, color 0.2s;"
-         onmouseover="this.style.borderColor='var(--rust-lt)'; this.style.color='var(--sand-lt)'"
-         onmouseout="this.style.borderColor='rgba(212,196,160,0.4)'; this.style.color='var(--sand)'">f</a>
-    </li>
   </ul>
 </nav>
 
@@ -1048,7 +1048,7 @@
         </div>
         <div class="aktiv-card-body">
           <div class="time">Josefin</div>
-          <h3>Göstas sista båtbygge, kravellbyggda snipan Josefin, på väg mot Medelhavet</h3>
+          <h3>Göstas sista båtbygge på väg mot Medelhavet</h3>
           <p>Vår och sommarförberedelser både på land och i vattnet</p>
         </div>
       </div>
@@ -1099,7 +1099,7 @@
         <div class="aktiv-card-body">
           <div class="time">Datum meddelas</div>
           <h3>Varvsinventering</h3>
-          <p>Inventering av varvet och alla verktyg.</p>
+          <p>Inventering av varvet och all verktyg.</p>
         </div>
       </div>
       <div class="aktiv-card reveal reveal-delay-3">
@@ -1295,7 +1295,7 @@
     <div class="aktiviteter-grid">
       <div class="aktiv-card reveal reveal-delay-1">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_027_bcb7efbc.jpg" alt="Kräftskiva 2024" loading="lazy">
+          <img src="./images/gostasvarv_029_98fcbde7.jpg" alt="Kräftskiva 2024" loading="lazy">
         </div>
         <div class="aktiv-card-body">
           <div class="time">Lördagen 19 aug 2023 · kl 19.00</div>
@@ -1305,7 +1305,7 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-2">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_077_a8807a19.png" alt="The Ohlson Story" loading="lazy">
+          <img src="./images/gostasvarv_016_65ec42f9.jpg" alt="The Ohlson Story" loading="lazy">
         </div>
         <div class="aktiv-card-body">
           <div class="time">17 juli 2025 · kl 18.00</div>
@@ -1315,7 +1315,7 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-3">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_051_ec4c76e3.png" alt="Bohusekan Lucia" loading="lazy">
+          <img src="./images/gostasvarv_053_daaf90db.jpg" alt="Bohusekan Lucia" loading="lazy">
         </div>
         <div class="aktiv-card-body">
           <div class="time">Sommaren 2025</div>
@@ -1325,7 +1325,7 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-1">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_047_8d78e5e8.png" alt="Föredrag Yvonne Hallberg" loading="lazy">
+          <img src="./images/gostasvarv_037_0d2f8902.jpg" alt="Föredrag Yvonne Hallberg" loading="lazy">
         </div>
         <div class="aktiv-card-body">
           <div class="time">17 juli 2024 · kl 18.30</div>
@@ -1345,7 +1345,7 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-3">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_035_8174851c.jpg" alt="Sjöfartsverkets eka" loading="lazy">
+          <img src="./images/gostasvarv_059_13920f3f.jpg" alt="Sjöfartsverkets eka" loading="lazy">
         </div>
         <div class="aktiv-card-body">
           <div class="time">2023</div>
