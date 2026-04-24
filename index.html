@@ -126,10 +126,8 @@
 
     /* Mobile nav */
     @media (max-width: 1400px) {
-      :root { --nav-h: 100px; }
       .nav-links { display: none; }
       .nav-burger { display: flex; }
-      .nav-logo img { height: 80px; }
       nav.open .nav-links {
         display: flex;
         flex-direction: column;
@@ -1434,17 +1432,8 @@
   function easeInOut(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
 
   function updateNav() {
-    var isMobile = window.innerWidth <= 1600;
     var sy = window.scrollY;
     var hero = document.getElementById('hero');
-
-    if (isMobile) {
-      nav.style.height = '100px';
-      if (logoImg) logoImg.style.height = '80px';
-      if (hero) hero.style.marginTop = '100px';
-      nav.style.background = 'rgba(0,0,0,0.97)';
-      return;
-    }
 
     var t    = easeInOut(clamp(sy / SCROLL_END, 0, 1));
     var navH = Math.round(lerp(NAV_LARGE, NAV_SMALL, t));
