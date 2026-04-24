@@ -1420,10 +1420,49 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Nav background on scroll
-  window.addEventListener('scroll', () => {
-    nav.style.background = window.scrollY > 60 ? 'rgba(0,0,0,0.99)' : 'rgba(0,0,0,0.97)';
-  });
+  // ── HEADER SCROLL ANIMATION ──────────────────────────────
+  const logoImg  = nav.querySelector('.nav-logo img');
+
+  var NAV_LARGE  = 300;
+  var NAV_SMALL  = 100;
+  var LOGO_LARGE = 260;
+  var LOGO_SMALL = 80;
+  var SCROLL_END = 400;
+
+  function clamp(v,a,b){ return Math.min(Math.max(v,a),b); }
+  function lerp(a,b,t){ return a+(b-a)*clamp(t,0,1); }
+  function easeInOut(t){ return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function updateNav() {
+    var isMobile = window.innerWidth <= 1600;
+    var sy = window.scrollY;
+    var hero = document.getElementById('hero');
+
+    if (isMobile) {
+      nav.style.height = '100px';
+      if (logoImg) logoImg.style.height = '80px';
+      if (hero) hero.style.marginTop = '100px';
+      nav.style.background = 'rgba(0,0,0,0.97)';
+      return;
+    }
+
+    var t    = easeInOut(clamp(sy / SCROLL_END, 0, 1));
+    var navH = Math.round(lerp(NAV_LARGE, NAV_SMALL, t));
+    var logoH = Math.round(lerp(LOGO_LARGE, LOGO_SMALL, t));
+
+    nav.style.height = navH + 'px';
+    if (logoImg) logoImg.style.height = logoH + 'px';
+    if (hero) hero.style.marginTop = navH + 'px';
+    nav.style.background = sy > 60 ? 'rgba(0,0,0,0.99)' : 'rgba(0,0,0,0.97)';
+
+    document.querySelectorAll('section, [id]').forEach(el => {
+      el.style.scrollMarginTop = navH + 'px';
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, {passive:true});
+  window.addEventListener('resize', updateNav);
+  updateNav();
 
   // ── LIGHTBOX ──────────────────────────────────────────
   const overlay  = document.getElementById('lb-overlay');
