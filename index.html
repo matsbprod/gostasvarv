@@ -25,7 +25,7 @@
       --ink:     #1a1a18;
       --ink-soft:#3a3830;
       --white:   #c8d8b0;
-      --nav-h:   320px;
+      --nav-h:   100px;  /* JS overrides this on desktop */
     }
 
     html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -56,15 +56,16 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      height: var(--nav-h);
+      height: 100px;
       background: rgba(0, 0, 0, 0.97);
       backdrop-filter: blur(8px);
       display: flex;
-      align-items: stretch;
+      align-items: center;
       justify-content: space-between;
       padding: 0 2.5rem 0 0;
       border-bottom: 1px solid rgba(212, 196, 160, 0.2);
-      transition: background 0.3s;
+      transition: background 0.3s, height 0.1s;
+      overflow: hidden;
     }
 
     .nav-logo {
@@ -72,17 +73,19 @@
       display: flex;
       align-items: center;
       padding-left: 2rem;
+      flex-shrink: 0;
     }
     .nav-logo img {
-      height: 80%;
+      height: 80px;
       width: auto;
       display: block;
       filter: none;
+      transition: height 0.1s;
     }
 
     .nav-links a {
       font-family: 'DM Mono', monospace;
-      font-size: 1.4rem;
+      font-size: 0.9rem;
       font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -95,7 +98,7 @@
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
       list-style: none;
       align-items: center;
     }
@@ -121,14 +124,8 @@
       transition: all 0.3s;
     }
 
-
-    /* Desktop nav font size - prevents wrapping at 125% Windows scaling */
-    @media (min-width: 1601px) {
-      .nav-links a { font-size: 1.4rem; }
-      .nav-links { gap: 1.8rem; }
-    }
     /* Mobile nav */
-    @media (max-width: 1600px) {
+    @media (max-width: 1400px) {
       :root { --nav-h: 100px; }
       .nav-links { display: none; }
       .nav-burger { display: flex; }
@@ -152,7 +149,7 @@
         width: 34px;
         height: 3px;
       }
-      .nav-links a { font-size: 0.85rem; letter-spacing: 0.06em; }
+      .nav-links a { font-size: 1.1rem; }
       .section-inner { padding: 0 1.2rem; }
     }
 
@@ -160,7 +157,7 @@
     .hero {
       position: relative;
       width: 100%;
-      margin-top: var(--nav-h);
+      margin-top: 300px; /* overridden by JS updateNav */
       display: block;
       overflow: visible;
     }
@@ -952,7 +949,7 @@
 <body>
 
 <!-- NAV -->
-<nav id="main-nav">
+<nav id="main-nav" style="">
   <a class="nav-logo" href="#">
     <img src="./images/logo.png" alt="Kulturföreningen Gösta Johanssons Varv">
   </a>
