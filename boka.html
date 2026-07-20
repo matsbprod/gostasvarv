@@ -661,7 +661,6 @@
   function selectDate(dateStr) {
     selectedDate = dateStr;
     document.getElementById('f-date').value = dateStr;
-    document.getElementById('f-enddate').min = dateStr;
     updateSelectedInfo();
     renderCalendar();
     document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
