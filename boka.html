@@ -495,6 +495,14 @@
         </div>
       </div>
 
+      <div style="display:flex; align-items:flex-start; gap:0.7rem; margin-bottom:1.2rem; margin-top:0.5rem;">
+        <input type="checkbox" id="f-regler" name="regler" required
+               style="width:18px; height:18px; flex-shrink:0; margin-top:2px; accent-color:var(--rust); cursor:pointer;">
+        <label for="f-regler" style="font-family:'Source Serif 4',serif; font-size:0.88rem; color:var(--text-dim); text-transform:none; letter-spacing:0; cursor:pointer; line-height:1.5;">
+          Jag har läst och godkänner <a href="#regler" style="color:var(--rust-lt)">uthyrningsreglerna</a> nedan *
+        </label>
+      </div>
+
       <button type="submit" class="submit-btn" id="submit-btn">
         Skicka förfrågan
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -506,7 +514,7 @@
   </div>
 
   <!-- REGLER -->
-  <div class="rules-section">
+  <div class="rules-section" id="regler">
     <div class="eyebrow">Villkor</div>
     <h2>Nyttjande av föreningsbåtar</h2>
 
