@@ -418,10 +418,16 @@
     }
     .success-msg.visible { display: block; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .page { padding: 2rem 1.2rem 4rem; }
       .cal-day { font-size: 0.7rem; }
       .boat-tab { padding: 0.7rem 1.2rem; font-size: 0.7rem; }
+      #boat-img, #boat-img + p { display: none; }
+      div[style*="grid-template-columns:1fr 260px"] { grid-template-columns: 1fr !important; }
+    }
+    @media (min-width: 701px) {
+    @media (min-width: 701px) {
+      .cal-day { font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -450,21 +456,33 @@
     <button class="boat-tab" onclick="selectBoat('Myra', this)">Myra</button>
   </div>
 
-  <!-- CALENDAR -->
-  <div class="calendar-wrap">
-    <div class="cal-header">
-      <span class="cal-month" id="cal-month"></span>
-      <div class="cal-nav">
-        <button class="cal-btn" onclick="changeMonth(-1)">&#8249;</button>
-        <button class="cal-btn" onclick="changeMonth(1)">&#8250;</button>
+  <!-- CALENDAR + IMAGE -->
+  <div style="display:grid; grid-template-columns:1fr 260px; gap:1.5rem; align-items:start; margin-bottom:2rem;">
+
+    <!-- CALENDAR -->
+    <div class="calendar-wrap" style="margin-bottom:0;">
+      <div class="cal-header">
+        <span class="cal-month" id="cal-month"></span>
+        <div class="cal-nav">
+          <button class="cal-btn" onclick="changeMonth(-1)">&#8249;</button>
+          <button class="cal-btn" onclick="changeMonth(1)">&#8250;</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="cal-grid" style="font-size:0.72rem;"></div>
+      <div class="cal-legend">
+        <div class="legend-item"><div class="legend-dot available"></div> Ledigt</div>
+        <div class="legend-item"><div class="legend-dot booked"></div> Bokat</div>
+        <div class="legend-item"><div class="legend-dot selected"></div> Valt</div>
       </div>
     </div>
-    <div class="cal-grid" id="cal-grid"></div>
-    <div class="cal-legend">
-      <div class="legend-item"><div class="legend-dot available"></div> Ledigt</div>
-      <div class="legend-item"><div class="legend-dot booked"></div> Bokat</div>
-      <div class="legend-item"><div class="legend-dot selected"></div> Valt datum</div>
+
+    <!-- BOAT IMAGE -->
+    <div>
+      <img id="boat-img" src="./images/josefin.jpg" alt="Josefin"
+           style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:4px; display:block;">
+      <p id="boat-img-caption" style="font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dimmer); margin-top:0.5rem;">Josefin</p>
     </div>
+
   </div>
 
   <!-- BOOKING FORM -->
@@ -592,6 +610,11 @@
     selectedDate = null;
     document.querySelectorAll('.boat-tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
+    // Byt bild
+    var img = document.getElementById('boat-img');
+    var cap = document.getElementById('boat-img-caption');
+    if (img) { img.src = './images/' + name.toLowerCase() + '.jpg'; img.alt = name; }
+    if (cap) { cap.textContent = name; }
     updateSelectedInfo();
     loadBookedDates(name);
   }
