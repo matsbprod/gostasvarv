@@ -442,6 +442,7 @@
   <div class="eyebrow">Uthyrning</div>
   <h1>Boka båt</h1>
   <p class="intro">Föreningens båtar Josefin och Myra kan bokas av medlemmar. Välj båt, klicka på önskat datum i kalendern och fyll i formuläret — vi återkommer med bekräftelse.</p>
+  <p style="font-family:'DM Mono',monospace; font-size:0.78rem; color:var(--rust-lt); margin-bottom:3rem;">Om något krånglar med bokningen, ring Mats på <a href="tel:0702092454" style="color:var(--rust-lt)">070-209 2454</a></p>
 
   <!-- BOAT TABS -->
   <div class="boat-tabs">
@@ -730,14 +731,20 @@
         bookedDates[boat] = data.bokade || [];
         renderCalendar();
       })
-      .catch(() => {});
+      .catch(() => {
+        // PHP ej tillgänglig — visa ändå kalendern
+        renderCalendar();
+      });
   }
 
-  // Init
+  // Init — rendera kalender direkt, ladda sedan bokade datum från server
   renderCalendar();
   updateSelectedInfo();
-  loadBookedDates('Josefin');
-  loadBookedDates('Myra');
+  // Försök hämta bokade datum — misslyckas tyst om PHP saknas
+  setTimeout(() => {
+    loadBookedDates('Josefin');
+    loadBookedDates('Myra');
+  }, 0);
 </script>
 
 </body>
