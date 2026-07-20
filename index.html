@@ -154,6 +154,8 @@
       }
       .nav-links a { font-size: 1.1rem; }
       .section-inner { padding: 0 1.2rem; }
+      .hero { margin-top: 100px !important; }
+      .hero-qr { display: none; }
     }
 
     /* ── HERO ─────────────────────────────────────────── */
@@ -976,17 +978,12 @@
   <div class="hero-bg">
     <img src="./images/hero.jpg" alt="Gröna Varvet i Kungsviken">
   </div>
-  <div class="hero-content" style="display:flex; align-items:center; gap:1rem; width:auto;">
-    <div>
-      <h1>Hjälp oss bevara<br>och underhålla<br>varvet och våra båtar.<br>Bli medlem, donator<br>eller delta i någon<br>av våra arbetsgrupper</h1>
-      <a href="#jump" class="hero-cta">
-        Bli Medlem
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <div style="flex-shrink:0;">
-      <img src="./images/Medlemsavgift.png" alt="Swish QR-kod för medlemsavgift" style="width:140px; height:auto; display:block; border-radius:8px;">
-    </div>
+  <div class="hero-content">
+    <h1>Hjälp oss bevara<br>och underhålla<br>varvet och våra båtar.<br>Bli medlem, donator<br>eller delta i någon<br>av våra arbetsgrupper</h1>
+    <a href="#jump" class="hero-cta">
+      Bli Medlem
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
   </div>
 </section>
 
@@ -1193,7 +1190,16 @@
         <p style="font-size:0.95rem; color:rgba(237,228,207,0.8); margin-bottom:1rem;">Vill du vara med och stötta föreningen i sitt arbete med att bevara varvet och en levande varvsmiljö? Då är du hjärtligt välkommen att bli medlem. Medlemsavgiften är <strong style="color:var(--sand-lt)">300 kr per år</strong> för enskild person eller familj.</p>
         <p style="font-size:0.95rem; color:rgba(237,228,207,0.8); margin-bottom:1rem;">Swisha till <strong style="color:var(--sand-lt)">123 268 0270</strong> eller bankgiro <strong style="color:var(--sand-lt)">5427-7892</strong></p>
         <p style="font-size:0.95rem; color:rgba(237,228,207,0.8); margin-bottom:1.5rem;">Kom ihåg att ange namn, adress, telefonnummer och mailadress. Vi informerar om pågående aktiviteter främst via mail.</p>
-        <img src="./images/Medlemsavgift.png" alt="Swish QR-kod för medlemsavgift" style="width:220px; height:auto; display:block; border-radius:12px; margin-bottom:1.5rem;">
+        <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+          <div style="text-align:center;">
+            <p style="font-size:0.75rem; color:rgba(237,228,207,0.6); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">Medlemsavgift</p>
+            <img src="./images/Medlemsavgift.png" alt="Swish QR-kod för medlemsavgift" style="width:180px; height:auto; display:block; border-radius:10px;">
+          </div>
+          <div style="text-align:center;">
+            <p style="font-size:0.75rem; color:rgba(237,228,207,0.6); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">Övriga betalningar</p>
+            <img src="./images/Swish_Gosta.png" alt="Swish QR-kod för övriga betalningar" style="width:180px; height:auto; display:block; border-radius:10px;">
+          </div>
+        </div>
         <p style="font-size:0.95rem; color:rgba(237,228,207,0.8);">Vill du stötta föreningen ytterligare tar vi gärna emot bidrag som kan sättas in på samma bankgiro- eller swishnummer.</p>
       </div>
       <div class="reveal reveal-delay-2">
