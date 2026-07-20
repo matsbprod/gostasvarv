@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boka båt – Gösta Johanssons Varv</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pine:    #0a0a08;
+      --ink:     #1a1a18;
+      --ink-mid: #2a2a26;
+      --rust:    #a0522d;
+      --rust-lt: #c8733d;
+      --cream:   #c8d8b0;
+      --sand:    #ffffff;
+      --sand-lt: #ffffff;
+      --white:   #ffffff;
+      --text-dim: rgba(255,255,255,0.65);
+      --text-dimmer: rgba(255,255,255,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--white);
+      font-family: 'Source Serif 4', serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(0,0,0,0.97);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--white); }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust-lt);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--rust-lt);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .intro {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── BOAT SELECTOR ── */
+    .boat-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .boat-tab {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      color: var(--text-dim);
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .boat-tab:hover { color: var(--white); }
+    .boat-tab.active {
+      color: var(--white);
+      border-bottom-color: var(--rust-lt);
+    }
+
+    /* ── CALENDAR ── */
+    .calendar-wrap {
+      background: var(--pine);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+    .cal-month {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .cal-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .cal-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      width: 32px; height: 32px;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .cal-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .cal-day-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+      text-align: center;
+      padding: 0.4rem 0;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border: 1px solid transparent;
+      color: var(--white);
+      position: relative;
+    }
+    .cal-day:hover:not(.empty):not(.past) {
+      background: rgba(200,115,61,0.2);
+      border-color: rgba(200,115,61,0.4);
+    }
+    .cal-day.empty { cursor: default; }
+    .cal-day.past { color: var(--text-dimmer); cursor: default; }
+    .cal-day.booked {
+      background: rgba(255,255,255,0.06);
+      color: var(--text-dimmer);
+      cursor: not-allowed;
+    }
+    .cal-day.booked::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--rust);
+    }
+    .cal-day.selected {
+      background: var(--rust);
+      color: var(--white);
+      border-color: var(--rust-lt);
+    }
+    .cal-day.today {
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .cal-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+    }
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .legend-dot.available { background: rgba(200,115,61,0.6); }
+    .legend-dot.booked { background: rgba(255,255,255,0.15); }
+    .legend-dot.selected { background: var(--rust); }
+
+    /* ── FORM ── */
+    .booking-form {
+      background: var(--pine);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .selected-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--rust-lt);
+      margin-bottom: 1.5rem;
+      min-height: 1.2em;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+    }
+
+    input, textarea, select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.95rem;
+      padding: 0.65rem 0.8rem;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--rust-lt);
+      background: rgba(255,255,255,0.08);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6;
+    }
+    select option { background: var(--ink); }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--rust);
+      color: var(--white);
+      border: none;
+      padding: 0.85rem 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--rust-lt); transform: translateY(-1px); }
+    .submit-btn svg { width: 14px; height: 14px; }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-dimmer);
+      margin-top: 0.8rem;
+      line-height: 1.5;
+    }
+
+    /* ── RULES ── */
+    .rules-section {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 2.5rem;
+      margin-top: 1rem;
+    }
+
+    .rules-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      max-width: 660px;
+    }
+
+    .rules-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .rule-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--rust-lt);
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+      padding-top: 0.2rem;
+      min-width: 1.8rem;
+    }
+
+    /* ── SUCCESS MSG ── */
+    .success-msg {
+      display: none;
+      background: rgba(200,115,61,0.12);
+      border: 1px solid rgba(200,115,61,0.4);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--white);
+      line-height: 1.6;
+    }
+    .success-msg.visible { display: block; }
+
+    @media (max-width: 600px) {
+      .page { padding: 2rem 1.2rem 4rem; }
+      .cal-day { font-size: 0.7rem; }
+      .boat-tab { padding: 0.7rem 1.2rem; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="./index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="19 12 5 12"/><polyline points="12 5 5 12 12 19"/>
+    </svg>
+    Tillbaka
+  </a>
+  <span class="nav-title">Kulturföreningen Gösta Johanssons Varv</span>
+</nav>
+
+<div class="page">
+
+  <div class="eyebrow">Uthyrning</div>
+  <h1>Boka båt</h1>
+  <p class="intro">Föreningens båtar Josefin och Myra kan bokas av medlemmar. Välj båt, klicka på önskat datum i kalendern och fyll i formuläret — vi återkommer med bekräftelse.</p>
+
+  <!-- BOAT TABS -->
+  <div class="boat-tabs">
+    <button class="boat-tab active" onclick="selectBoat('Josefin', this)">Josefin</button>
+    <button class="boat-tab" onclick="selectBoat('Myra', this)">Myra</button>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="calendar-wrap">
+    <div class="cal-header">
+      <span class="cal-month" id="cal-month"></span>
+      <div class="cal-nav">
+        <button class="cal-btn" onclick="changeMonth(-1)">&#8249;</button>
+        <button class="cal-btn" onclick="changeMonth(1)">&#8250;</button>
+      </div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-legend">
+      <div class="legend-item"><div class="legend-dot available"></div> Ledigt</div>
+      <div class="legend-item"><div class="legend-dot booked"></div> Bokat</div>
+      <div class="legend-item"><div class="legend-dot selected"></div> Valt datum</div>
+    </div>
+  </div>
+
+  <!-- BOOKING FORM -->
+  <div class="booking-form">
+    <div class="form-title">Bokningsförfrågan</div>
+    <div class="selected-info" id="selected-info">Välj ett datum i kalendern ovan</div>
+
+    <div class="success-msg" id="success-msg">
+      ✓ Din förfrågan har skickats till info@gostasvarv.se. Vi återkommer med bekräftelse inom kort.
+    </div>
+
+    <form id="booking-form" onsubmit="submitForm(event)">
+      <input type="hidden" id="f-boat" name="bat">
+      <input type="hidden" id="f-date" name="datum">
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="f-name">Namn *</label>
+          <input type="text" id="f-name" name="namn" required placeholder="För- och efternamn">
+        </div>
+        <div class="form-group">
+          <label for="f-phone">Telefon *</label>
+          <input type="tel" id="f-phone" name="telefon" required placeholder="070-000 00 00">
+        </div>
+        <div class="form-group">
+          <label for="f-email">E-post *</label>
+          <input type="email" id="f-email" name="epost" required placeholder="din@epost.se">
+        </div>
+        <div class="form-group">
+          <label for="f-enddate">Återlämning</label>
+          <input type="date" id="f-enddate" name="aterlamning">
+        </div>
+        <div class="form-group full">
+          <label for="f-msg">Meddelande</label>
+          <textarea id="f-msg" name="meddelande" placeholder="Berätta gärna om dina planer, hur många ni är och annan relevant information..."></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">
+        Skicka förfrågan
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+      <p class="form-note">* Obligatoriska fält. Bokningsförfrågan skickas till info@gostasvarv.se och bekräftas av föreningen.</p>
+    </form>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules-section">
+    <div class="eyebrow">Villkor</div>
+    <h2>Regler för uthyrning</h2>
+    <ul class="rules-list">
+      <li>
+        <span class="rule-num">01</span>
+        <span>Båtarna hyrs ut uteslutande till betalande medlemmar i Kulturföreningen Gösta Johanssons Varv. Ej medlem? <a href="./index.html#jump" style="color:var(--rust-lt)">Bli medlem här.</a></span>
+      </li>
+      <li>
+        <span class="rule-num">02</span>
+        <span>Hyrestagaren ansvarar för att ha giltigt förarbevis och de certifikat som krävs för att framföra aktuell båt.</span>
+      </li>
+      <li>
+        <span class="rule-num">03</span>
+        <span>Båten ska återlämnas i samma skick som vid avhämtning — rengjord, bränsletank påfylld och utan skador. Eventuella skador ska omedelbart rapporteras till föreningen.</span>
+      </li>
+      <li>
+        <span class="rule-num">04</span>
+        <span>Hyrestagaren är personligen ansvarig för båten och dess utrustning under hela hyresperioden.</span>
+      </li>
+      <li>
+        <span class="rule-num">05</span>
+        <span>Kostnad och betalningsvillkor meddelas vid bokningsbekräftelse. Betalning sker via Swish till föreningens nummer 123 268 0270.</span>
+      </li>
+      <li>
+        <span class="rule-num">06</span>
+        <span>Avbokning ska ske senast 48 timmar före bokad tid. Vid senare avbokning debiteras halv hyra.</span>
+      </li>
+      <li>
+        <span class="rule-num">07</span>
+        <span>Rökning är förbjuden ombord. Husdjur är tillåtna efter överenskommelse.</span>
+      </li>
+      <li>
+        <span class="rule-num">08</span>
+        <span>Föreningen förbehåller sig rätten att avboka bokning vid force majeure, tekniska fel eller underhållsbehov, utan ekonomisk kompensation.</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  // State
+  var selectedBoat = 'Josefin';
+  var selectedDate = null;
+  var currentYear  = new Date().getFullYear();
+  var currentMonth = new Date().getMonth();
+
+  // Mock booked dates per boat — replace with real data from backend
+  var bookedDates = {
+    'Josefin': [],
+    'Myra':    []
+  };
+
+  var months = ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober','November','December'];
+  var days   = ['Mån','Tis','Ons','Tor','Fre','Lör','Sön'];
+
+  function selectBoat(name, el) {
+    selectedBoat = name;
+    selectedDate = null;
+    document.querySelectorAll('.boat-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    updateSelectedInfo();
+    renderCalendar();
+  }
+
+  function changeMonth(dir) {
+    currentMonth += dir;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  }
+
+  function isBooked(dateStr) {
+    return bookedDates[selectedBoat].indexOf(dateStr) !== -1;
+  }
+
+  function isPast(y, m, d) {
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    return new Date(y, m, d) < today;
+  }
+
+  function isToday(y, m, d) {
+    var t = new Date();
+    return t.getFullYear()===y && t.getMonth()===m && t.getDate()===d;
+  }
+
+  function renderCalendar() {
+    document.getElementById('cal-month').textContent = months[currentMonth] + ' ' + currentYear;
+    var grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+
+    // Day labels (Mon–Sun)
+    days.forEach(function(d) {
+      var el = document.createElement('div');
+      el.className = 'cal-day-label';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    // First day of month (0=Sun…6=Sat → convert to Mon-based)
+    var first = new Date(currentYear, currentMonth, 1).getDay();
+    var offset = (first === 0) ? 6 : first - 1;
+    var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    for (var i = 0; i < offset; i++) {
+      var blank = document.createElement('div');
+      blank.className = 'cal-day empty';
+      grid.appendChild(blank);
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var dateStr = currentYear + '-' + pad(currentMonth+1) + '-' + pad(d);
+      var el = document.createElement('div');
+      el.className = 'cal-day';
+      el.textContent = d;
+
+      if (isPast(currentYear, currentMonth, d)) {
+        el.classList.add('past');
+      } else if (isBooked(dateStr)) {
+        el.classList.add('booked');
+        el.title = 'Redan bokat';
+      } else {
+        if (isToday(currentYear, currentMonth, d)) el.classList.add('today');
+        if (selectedDate === dateStr) el.classList.add('selected');
+        (function(ds) {
+          el.addEventListener('click', function() { selectDate(ds); });
+        })(dateStr);
+      }
+      grid.appendChild(el);
+    }
+  }
+
+  function pad(n) { return n < 10 ? '0'+n : ''+n; }
+
+  function selectDate(dateStr) {
+    selectedDate = dateStr;
+    document.getElementById('f-date').value = dateStr;
+    document.getElementById('f-enddate').min = dateStr;
+    updateSelectedInfo();
+    renderCalendar();
+    document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function updateSelectedInfo() {
+    var el = document.getElementById('selected-info');
+    document.getElementById('f-boat').value = selectedBoat;
+    if (selectedDate) {
+      var parts = selectedDate.split('-');
+      var d = new Date(parts[0], parts[1]-1, parts[2]);
+      var weekdays = ['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'];
+      el.textContent = selectedBoat + ' · ' + weekdays[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()].toLowerCase() + ' ' + parts[0];
+    } else {
+      el.textContent = 'Välj ett datum i kalendern ovan';
+    }
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    if (!selectedDate) {
+      alert('Välj ett datum i kalendern först.');
+      return;
+    }
+
+    var boat  = document.getElementById('f-boat').value;
+    var date  = document.getElementById('f-date').value;
+    var name  = document.getElementById('f-name').value;
+    var phone = document.getElementById('f-phone').value;
+    var email = document.getElementById('f-email').value;
+    var end   = document.getElementById('f-enddate').value;
+    var msg   = document.getElementById('f-msg').value;
+
+    var subject = encodeURIComponent('Bokningsförfrågan: ' + boat + ' ' + date);
+    var body = encodeURIComponent(
+      'Båt: ' + boat + '\n' +
+      'Datum: ' + date + (end ? ' – ' + end : '') + '\n' +
+      'Namn: ' + name + '\n' +
+      'Telefon: ' + phone + '\n' +
+      'E-post: ' + email + '\n\n' +
+      (msg ? 'Meddelande:\n' + msg : '')
+    );
+
+    window.location.href = 'mailto:info@gostasvarv.se?subject=' + subject + '&body=' + body;
+
+    document.getElementById('success-msg').classList.add('visible');
+    document.getElementById('booking-form').reset();
+    selectedDate = null;
+    updateSelectedInfo();
+    renderCalendar();
+  }
+
+  // Init
+  renderCalendar();
+  updateSelectedInfo();
+</script>
+
+</body>
+</html>
