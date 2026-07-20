@@ -492,14 +492,6 @@
           <label for="f-email">E-post *</label>
           <input type="email" id="f-email" name="epost" required placeholder="din@epost.se">
         </div>
-        <div class="form-group">
-          <label for="f-enddate">Återlämning</label>
-          <input type="date" id="f-enddate" name="aterlamning">
-        </div>
-        <div class="form-group full">
-          <label for="f-msg">Meddelande</label>
-          <textarea id="f-msg" name="meddelande" placeholder="Berätta gärna om dina planer, hur många ni är och annan relevant information..."></textarea>
-        </div>
       </div>
 
       <button type="submit" class="submit-btn" id="submit-btn">
@@ -512,44 +504,60 @@
     </form>
   </div>
 
-  <!-- RULES -->
+  <!-- REGLER -->
   <div class="rules-section">
     <div class="eyebrow">Villkor</div>
-    <h2>Regler för uthyrning</h2>
-    <ul class="rules-list">
-      <li>
-        <span class="rule-num">01</span>
-        <span>Båtarna hyrs ut uteslutande till betalande medlemmar i Kulturföreningen Gösta Johanssons Varv. Ej medlem? <a href="./index.html#jump" style="color:var(--rust-lt)">Bli medlem här.</a></span>
-      </li>
-      <li>
-        <span class="rule-num">02</span>
-        <span>Hyrestagaren ansvarar för att ha giltigt förarbevis och de certifikat som krävs för att framföra aktuell båt.</span>
-      </li>
-      <li>
-        <span class="rule-num">03</span>
-        <span>Båten ska återlämnas i samma skick som vid avhämtning — rengjord, bränsletank påfylld och utan skador. Eventuella skador ska omedelbart rapporteras till föreningen.</span>
-      </li>
-      <li>
-        <span class="rule-num">04</span>
-        <span>Hyrestagaren är personligen ansvarig för båten och dess utrustning under hela hyresperioden.</span>
-      </li>
-      <li>
-        <span class="rule-num">05</span>
-        <span>Kostnad och betalningsvillkor meddelas vid bokningsbekräftelse. Betalning sker via Swish till föreningens nummer 123 268 0270.</span>
-      </li>
-      <li>
-        <span class="rule-num">06</span>
-        <span>Avbokning ska ske senast 48 timmar före bokad tid. Vid senare avbokning debiteras halv hyra.</span>
-      </li>
-      <li>
-        <span class="rule-num">07</span>
-        <span>Rökning är förbjuden ombord. Husdjur är tillåtna efter överenskommelse.</span>
-      </li>
-      <li>
-        <span class="rule-num">08</span>
-        <span>Föreningen förbehåller sig rätten att avboka bokning vid force majeure, tekniska fel eller underhållsbehov, utan ekonomisk kompensation.</span>
-      </li>
+    <h2>Nyttjande av föreningsbåtar</h2>
+
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:1.5rem; max-width:720px;">
+      Som medlem i Kulturföreningen Gösta Johanssons Varv har du möjlighet att använda våra båtar. Avgiften för att hyra båtarna är för <strong style="color:var(--white)">Josefin</strong> (motorseglande snipa) <strong style="color:var(--white)">300:-/dag</strong>, <strong style="color:var(--white)">Myra</strong> (J14) <strong style="color:var(--white)">200:-/dag</strong>. Aktiva medlemmar i föreningen använder båtarna utan kostnad. Vår roddeka kan användas utan avgift och används också för att ta sig till båt som ligger vid boj.
+    </p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); margin-bottom:1rem;">Ordningsregler</h3>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:1rem; max-width:720px;">
+      För båtarna krävs ett undertecknat avtal för hyra av båt. Efter bokning kan motorseglande snipa, segel- och roddbåtar användas under dagen och efter överenskommelse även för längre tid. Nyttjande av båt utan ovanstående är uppfyllt ses som otillbörligt nyttjande av föreningens egendom.
+    </p>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:1rem; max-width:720px;">
+      Båtarna är försäkrade av kulturföreningen, men eget vållande av skador och/eller av självrisker betalas av den som hyr/lånar båten.
+    </p>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:1rem; max-width:720px;">
+      Tänk på att ta väl hand om båtar och utrustning eftersom det är medlemmars frivilliga arbete som möjliggör att de finns och fungerar. Upptäcker ni fel eller brister måste dessa ovillkorligen anmälas. Vi önskar också att du deltager i båtvård, sjösättning och upptagning.
+    </p>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:2rem; max-width:720px;">
+      Var noga med att kontrollera båten innan användandet påbörjas så att du inte blir ersättningsskyldig för inte rapporterad skada. Rapportera direkt om något är sönder i båten.
+    </p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); margin-bottom:1rem;">Förhållningsregler</h3>
+    <ul class="rules-list" style="margin-bottom:2rem;">
+      <li><span class="rule-num">—</span><span>Båtarna bokas via <a href="https://www.gostasvarv.se" style="color:var(--rust-lt)">www.gostasvarv.se</a> och, som regel, tidigaste en vecka innan användandet eller tidigare enligt överenskommelse.</span></li>
+      <li><span class="rule-num">—</span><span>Föreningen utgår från att den som hyr båten besitter kunskaper om båtens användande samt nödvändiga sjöregler.</span></li>
+      <li><span class="rule-num">—</span><span>Föreningen tillhandahåller ej flytväst eller sjökort.</span></li>
+      <li><span class="rule-num">—</span><span>Den/de som använder båtarna ska vara medlemmar i föreningen och ta ansvar för båten.</span></li>
+      <li><span class="rule-num">—</span><span>Förtöj båten på ett säkert sätt på den plats där du tog den.</span></li>
     </ul>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); margin-bottom:1rem;">Josefin, motorseglande snipa</h3>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:2rem; max-width:720px;">
+      För att använda Josefin krävs en genomgång av hantering och skötsel av båten. Efter användning ska båten torkas rent och tömmas på skräp. Följ schema i båten för kontroll av: gasol, toalett, kylskåp och batterier. Om motorn använts ska diesel fyllas på, segel beslås på samma sätt som när du tog båten, sätt på kapell och fendrar.
+    </p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); margin-bottom:1rem;">Myra, J 14</h3>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:2rem; max-width:720px;">
+      För att använda Myra krävs en genomgång av hantering av båten. Efter segling, beslå seglen på samma sätt som när du tog båten. Seglen förvaras i båten. Torka rent båten, kontrollera ev vatten under durkarna, töm båten på skräp samt kontrollera att batteri för länspump fungerar. Sätt på kapell. Om utombordaren har används, kontrollera att det finns bensin i motor och dunk.
+    </p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--white); margin-bottom:1rem;">Roddbåten</h3>
+    <p style="color:var(--text-dim); line-height:1.75; margin-bottom:2.5rem; max-width:720px;">
+      Roddbåten kan användas med eller utan motor. Tänk på, innan du använder båten, att kontrollera om den behöver användas för att ta sig till segelbåtarna.
+    </p>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:1.5rem; max-width:720px;">
+      <p style="color:var(--text-dim); line-height:1.75; margin-bottom:0.3rem;">
+        Eventuella skador rapporteras till <a href="mailto:info@gostasvarv.se" style="color:var(--rust-lt)">info@gostasvarv.se</a>
+      </p>
+      <p style="color:var(--text-dimmer); font-size:0.85rem; margin-bottom:0.2rem;">Kungsviken 2025-07-20</p>
+      <p style="color:var(--text-dimmer); font-size:0.85rem;">Styrelsen för Kulturföreningen Gösta Johanssons varv</p>
+    </div>
   </div>
 
 </div>
@@ -576,7 +584,7 @@
     document.querySelectorAll('.boat-tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
     updateSelectedInfo();
-    renderCalendar();
+    loadBookedDates(name);
   }
 
   function changeMonth(dir) {
@@ -683,31 +691,53 @@
     var name  = document.getElementById('f-name').value;
     var phone = document.getElementById('f-phone').value;
     var email = document.getElementById('f-email').value;
-    var end   = document.getElementById('f-enddate').value;
-    var msg   = document.getElementById('f-msg').value;
 
-    var subject = encodeURIComponent('Bokningsförfrågan: ' + boat + ' ' + date);
-    var body = encodeURIComponent(
-      'Båt: ' + boat + '\n' +
-      'Datum: ' + date + (end ? ' – ' + end : '') + '\n' +
-      'Namn: ' + name + '\n' +
-      'Telefon: ' + phone + '\n' +
-      'E-post: ' + email + '\n\n' +
-      (msg ? 'Meddelande:\n' + msg : '')
-    );
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Skickar…';
 
-    window.location.href = 'mailto:info@gostasvarv.se?subject=' + subject + '&body=' + body;
+    fetch('boka.php?action=boka', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bat: boat, datum: date, namn: name, telefon: phone, epost: email })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        document.getElementById('success-msg').classList.add('visible');
+        document.getElementById('booking-form').reset();
+        selectedDate = null;
+        updateSelectedInfo();
+        renderCalendar();
+        loadBookedDates(selectedBoat);
+      } else {
+        alert(data.fel || 'Något gick fel, försök igen.');
+      }
+      btn.disabled = false;
+      btn.innerHTML = 'Skicka förfrågan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    })
+    .catch(() => {
+      alert('Kunde inte ansluta till servern. Försök igen.');
+      btn.disabled = false;
+      btn.innerHTML = 'Skicka förfrågan';
+    });
+  }
 
-    document.getElementById('success-msg').classList.add('visible');
-    document.getElementById('booking-form').reset();
-    selectedDate = null;
-    updateSelectedInfo();
-    renderCalendar();
+  function loadBookedDates(boat) {
+    fetch('boka.php?action=hamta&bat=' + encodeURIComponent(boat))
+      .then(r => r.json())
+      .then(data => {
+        bookedDates[boat] = data.bokade || [];
+        renderCalendar();
+      })
+      .catch(() => {});
   }
 
   // Init
   renderCalendar();
   updateSelectedInfo();
+  loadBookedDates('Josefin');
+  loadBookedDates('Myra');
 </script>
 
 </body>
