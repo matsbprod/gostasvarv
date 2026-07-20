@@ -1438,9 +1438,10 @@
   // ── HEADER SCROLL ANIMATION ──────────────────────────────
   const logoImg  = nav.querySelector('.nav-logo img');
 
-  var NAV_LARGE  = 300;
+  var IS_MOBILE  = window.innerWidth <= 1400;
+  var NAV_LARGE  = IS_MOBILE ? 100 : 300;
   var NAV_SMALL  = 100;
-  var LOGO_LARGE = 260;
+  var LOGO_LARGE = IS_MOBILE ? 80 : 260;
   var LOGO_SMALL = 80;
   var SCROLL_END = 400;
 
@@ -1467,7 +1468,12 @@
   }
 
   window.addEventListener('scroll', updateNav, {passive:true});
-  window.addEventListener('resize', updateNav);
+  window.addEventListener('resize', function() {
+    IS_MOBILE  = window.innerWidth <= 1400;
+    NAV_LARGE  = IS_MOBILE ? 100 : 300;
+    LOGO_LARGE = IS_MOBILE ? 80 : 260;
+    updateNav();
+  });
   updateNav();
 
   // ── LIGHTBOX ──────────────────────────────────────────
