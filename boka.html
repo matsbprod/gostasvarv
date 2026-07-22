@@ -754,17 +754,23 @@
     formData.append('telefon', phone);
     formData.append('epost', email);
 
-    fetch('/', {
+    fetch('/api/boka', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bat: boat, datum: date, namn: name, telefon: phone, epost: email })
     })
-    .then(() => {
-      document.getElementById('success-msg').classList.add('visible');
-      document.getElementById('booking-form').reset();
-      selectedDate = null;
-      updateSelectedInfo();
-      renderCalendar();
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        document.getElementById('success-msg').classList.add('visible');
+        document.getElementById('booking-form').reset();
+        document.getElementById('f-regler').checked = false;
+        selectedDate = null;
+        updateSelectedInfo();
+        loadBookedDates(selectedBoat);
+      } else {
+        alert(data.fel || 'Något gick fel, försök igen.');
+      }
       btn.disabled = false;
       btn.innerHTML = 'Skicka förfrågan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
     })
@@ -776,21 +782,22 @@
   }
 
   function loadBookedDates(boat) {
-    fetch('boka.php?action=hamta&bat=' + encodeURIComponent(boat))
+    fetch('/api/hamta-bokningar?bat=' + encodeURIComponent(boat))
       .then(r => r.json())
       .then(data => {
         bookedDates[boat] = data.bokade || [];
         renderCalendar();
       })
-      .catch(() => {
-        // PHP ej tillgänglig — visa ändå kalendern
-        renderCalendar();
-      });
+      .catch(() => renderCalendar());
   }
 
-  // Init — rendera kalender direkt
+  // Init
   renderCalendar();
   updateSelectedInfo();
+  setTimeout(() => {
+    loadBookedDates('Josefin');
+    loadBookedDates('Myra');
+  }, 0);
 </script>
 
 </body>
