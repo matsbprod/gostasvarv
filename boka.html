@@ -491,10 +491,12 @@
     <div class="selected-info" id="selected-info">Välj ett datum i kalendern ovan</div>
 
     <div class="success-msg" id="success-msg">
-      ✓ Din förfrågan har skickats till info@gostasvarv.se. Vi återkommer med bekräftelse inom kort.
+      ✓ Din bokningsförfrågan har skickats! Vi återkommer med bekräftelse inom kort.
     </div>
 
-    <form id="booking-form" onsubmit="submitForm(event)">
+    <form id="booking-form" name="bokning" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="submitForm(event)">
+      <input type="hidden" name="form-name" value="bokning">
+      <p style="display:none;"><input name="bot-field"></p>
       <input type="hidden" id="f-boat" name="bat">
       <input type="hidden" id="f-date" name="datum">
 
@@ -722,33 +724,41 @@
     var name  = document.getElementById('f-name').value;
     var phone = document.getElementById('f-phone').value;
     var email = document.getElementById('f-email').value;
+    var regler = document.getElementById('f-regler').checked;
+
+    if (!regler) {
+      alert('Du måste godkänna uthyrningsreglerna.');
+      return;
+    }
 
     var btn = document.getElementById('submit-btn');
     btn.disabled = true;
     btn.textContent = 'Skickar…';
 
-    fetch('boka.php?action=boka', {
+    var formData = new FormData();
+    formData.append('form-name', 'bokning');
+    formData.append('bat', boat);
+    formData.append('datum', date);
+    formData.append('namn', name);
+    formData.append('telefon', phone);
+    formData.append('epost', email);
+
+    fetch('/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bat: boat, datum: date, namn: name, telefon: phone, epost: email })
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
     })
-    .then(r => r.json())
-    .then(data => {
-      if (data.ok) {
-        document.getElementById('success-msg').classList.add('visible');
-        document.getElementById('booking-form').reset();
-        selectedDate = null;
-        updateSelectedInfo();
-        renderCalendar();
-        loadBookedDates(selectedBoat);
-      } else {
-        alert(data.fel || 'Något gick fel, försök igen.');
-      }
+    .then(() => {
+      document.getElementById('success-msg').classList.add('visible');
+      document.getElementById('booking-form').reset();
+      selectedDate = null;
+      updateSelectedInfo();
+      renderCalendar();
       btn.disabled = false;
       btn.innerHTML = 'Skicka förfrågan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
     })
     .catch(() => {
-      alert('Kunde inte ansluta till servern. Försök igen.');
+      alert('Något gick fel. Försök igen eller ring Mats på 070-209 2454.');
       btn.disabled = false;
       btn.innerHTML = 'Skicka förfrågan';
     });
@@ -767,14 +777,9 @@
       });
   }
 
-  // Init — rendera kalender direkt, ladda sedan bokade datum från server
+  // Init — rendera kalender direkt
   renderCalendar();
   updateSelectedInfo();
-  // Försök hämta bokade datum — misslyckas tyst om PHP saknas
-  setTimeout(() => {
-    loadBookedDates('Josefin');
-    loadBookedDates('Myra');
-  }, 0);
 </script>
 
 </body>
