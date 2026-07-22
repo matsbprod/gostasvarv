@@ -28,7 +28,7 @@ export default async (req) => {
       );
     }
 
-    // Spara bokning
+    // Spara bokning i Blobs
     await store.setJSON(key, {
       bat,
       datum,
@@ -37,6 +37,21 @@ export default async (req) => {
       epost,
       skapad: new Date().toISOString(),
       status: "väntar",
+    });
+
+    // Skicka mejlnotifiering via Netlify Forms
+    const siteUrl = req.headers.get("origin") || "https://gostasvarv.se";
+    await fetch(`${siteUrl}/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        "form-name": "bokning",
+        bat,
+        datum,
+        namn,
+        telefon,
+        epost,
+      }).toString(),
     });
 
     return new Response(JSON.stringify({ ok: true }), {
