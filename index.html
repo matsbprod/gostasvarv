@@ -159,6 +159,28 @@
       .hero-bg img { min-height: 320px; object-fit: cover; object-position: center; }
     }
 
+    .hero-location {
+      position: absolute;
+      top: 1.5rem;
+      left: 2.5rem;
+      z-index: 2;
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sand-lt);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .hero-location::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--rust-lt);
+    }
+
     /* ── HERO ─────────────────────────────────────────── */
     .hero {
       position: relative;
@@ -977,6 +999,7 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-location">Kungsviken, Orust</div>
   <div class="hero-bg">
     <img src="./images/hero.jpg" alt="Gröna Varvet i Kungsviken">
   </div>
@@ -1044,12 +1067,12 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-2">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_020_050c4fc3.jpg" alt="Arbete med båtar" loading="lazy">
+          <img src="./images/gostasvarv_085_1e26fd1a.jpg" alt="Öppet varv" loading="lazy">
         </div>
         <div class="aktiv-card-body">
-          <div class="time">Onsdagar dagtid från 10-14 och kvällstid 17-19, Lördagar 10–14</div>
-          <h3>Arbete med båtar</h3>
-          <p>Alla medlemmar välkomna! Föreningens flotta: Polstjernan, Josefin, J14 Myra och bohusekan Lucia samt ett antal ekor. Maila <a href="mailto:info@gostasvarv.se" style="color:var(--rust)">info@gostasvarv.se</a> om du vill anmäla intresse</p>
+          <div class="time">Öppet varv 2026</div>
+          <h3>I år helgen 22-23 augusti</h3>
+          <p>Öppet varv med välbesökt brygga. Westkust, båtar från Bassholmen, lokala träbåtar från Kungsviken inklusive Orvar Olssons nybyggda Rånäsjulle och föreningens egna Josefin och Myra och pärebåten Maria. På land Svalan och Polstjernan. Försäljning av hantverk, fika och korv. Musikunderhållning och föredrag.</p>
         </div>
       </div>
       <div class="aktiv-card reveal reveal-delay-3">
@@ -1064,12 +1087,12 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-1">
         <div class="aktiv-card-img">
-          <img src="./images/Sågen.jpeg" alt="Sågen" loading="lazy">
+          <img src="./images/gostasvarv_029_98fcbde7.jpg" alt="Kräftskiva" loading="lazy">
         </div>
         <div class="aktiv-card-body">
-          <div class="time">Onsdagar dagtid från 10-14 och kvällstid 17-19, Lördagar 10–14</div>
-          <h3>Varvsrenovering och inventering</h3>
-          <p>Renovering och underhåll av varvsbyggnadern; fönster, blocksågen samt verktyginventering.</p>
+          <div class="time">Lördagen 8 augusti · Kl 18</div>
+          <h3>Kräftskiva</h3>
+          <p>Välkomna till vår årliga kräftskiva lördagen 8 augusti 18.00 2026 i Göstas skjul. Tag med kräftor med tillbehör och kaffe. Vänligen anmäl snarast till <a href="mailto:elsebeth.ahling@gmail.com" style="color:var(--rust); font-weight:600;">elsebeth.ahling@gmail.com</a>. Välkomna!</p>
         </div>
       </div>
       <div class="aktiv-card reveal reveal-delay-2">
@@ -1084,12 +1107,22 @@
       </div>
       <div class="aktiv-card reveal reveal-delay-3">
         <div class="aktiv-card-img">
-          <img src="./images/gostasvarv_085_1e26fd1a.jpg" alt="Öppet varv" loading="lazy">
+          <img src="./images/Sågen.jpeg" alt="Sågen" loading="lazy">
         </div>
         <div class="aktiv-card-body">
-          <div class="time">Öppet varv 2026</div>
-          <h3>I år helgen 22-23 augusti</h3>
-          <p>Öppet varv med välbesökt brygga. Westkust, båtar från Bassholmen, lokala träbåtar från Kungsviken inklusive Orvar Olssons nybyggda Rånäsjulle och föreningens egna Josefin och Myra och pärebåten Maria. På land Svalan och Polstjernan. Försäljning av hantverk, fika och korv. Musikunderhållning och föredrag.</p>
+          <div class="time">Onsdagar dagtid från 10-14 och kvällstid 17-19, Lördagar 10–14</div>
+          <h3>Varvsrenovering och inventering</h3>
+          <p>Renovering och underhåll av varvsbyggnadern; fönster, blocksågen samt verktyginventering.</p>
+        </div>
+      </div>
+      <div class="aktiv-card reveal reveal-delay-1">
+        <div class="aktiv-card-img">
+          <img src="./images/gostasvarv_020_050c4fc3.jpg" alt="Arbete med båtar" loading="lazy">
+        </div>
+        <div class="aktiv-card-body">
+          <div class="time">Onsdagar dagtid från 10-14 och kvällstid 17-19, Lördagar 10–14</div>
+          <h3>Arbete med båtar</h3>
+          <p>Alla medlemmar välkomna! Föreningens flotta: Polstjernan, Josefin, J14 Myra och bohusekan Lucia samt ett antal ekor. Maila <a href="mailto:info@gostasvarv.se" style="color:var(--rust)">info@gostasvarv.se</a> om du vill anmäla intresse</p>
         </div>
       </div>
       <div class="aktiv-card reveal reveal-delay-1">
