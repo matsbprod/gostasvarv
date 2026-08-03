@@ -154,9 +154,20 @@
       }
       .nav-links a { font-size: 1.1rem; }
       .section-inner { padding: 0 1.2rem; }
-      .hero { margin-top: 100px !important; }
       .hero-qr { display: none; }
+    }
+
+    /* Tablets (iPad m.fl.) behåller den animerade header-krympningen som desktop */
+    @media (max-width: 1400px) and (min-width: 701px) {
+      .hero-bg img { min-height: 420px; object-fit: cover; object-position: center; }
+      .hero-content { top: auto; bottom: 2rem; transform: none; }
+    }
+
+    /* Endast riktigt smala telefoner får den statiska, hoppressade headern */
+    @media (max-width: 700px) {
+      .hero { margin-top: 100px !important; }
       .hero-bg img { min-height: 320px; object-fit: cover; object-position: center; }
+      .hero-content { top: auto; bottom: 2rem; transform: none; }
     }
 
     .hero-location {
@@ -1490,7 +1501,7 @@
   // ── HEADER SCROLL ANIMATION ──────────────────────────────
   const logoImg  = nav.querySelector('.nav-logo img');
 
-  var IS_MOBILE  = window.innerWidth <= 1400;
+  var IS_MOBILE  = window.innerWidth <= 700;
   var NAV_LARGE  = IS_MOBILE ? 100 : 300;
   var NAV_SMALL  = 100;
   var LOGO_LARGE = IS_MOBILE ? 80 : 260;
@@ -1521,7 +1532,7 @@
 
   window.addEventListener('scroll', updateNav, {passive:true});
   window.addEventListener('resize', function() {
-    IS_MOBILE  = window.innerWidth <= 1400;
+    IS_MOBILE  = window.innerWidth <= 700;
     NAV_LARGE  = IS_MOBILE ? 100 : 300;
     LOGO_LARGE = IS_MOBILE ? 80 : 260;
     updateNav();
