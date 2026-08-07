@@ -1490,6 +1490,23 @@
     a.addEventListener('click', () => nav.classList.remove('open'));
   });
 
+  // Interna ankarlänkar: hoppa direkt till rätt slutposition (headerns
+  // slutgiltiga, hopkrympta höjd) istället för webbläsarens inbyggda
+  // ankarscroll — annars flyttas målsektionen under själva animationen
+  // eftersom headern (och därmed sidans marginal) krymper samtidigt.
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    a.addEventListener('click', function(e) {
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      var y = target.getBoundingClientRect().top + window.scrollY - NAV_SMALL;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      history.pushState(null, '', '#' + id);
+    });
+  });
+
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
