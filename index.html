@@ -1501,7 +1501,8 @@
       var target = document.getElementById(id);
       if (!target) return;
       e.preventDefault();
-      var y = target.getBoundingClientRect().top + window.scrollY - NAV_SMALL;
+      var navH0 = nav.offsetHeight;
+      var y = target.getBoundingClientRect().top + window.scrollY - navH0;
       window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
       history.pushState(null, '', '#' + id);
     });
