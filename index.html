@@ -1501,14 +1501,19 @@
       var target = document.getElementById(id);
       if (!target) return;
       e.preventDefault();
+      // Stäng ev. öppen mobilmeny direkt (oavsett ordning på lyssnare) så
+      // overlayet hunnit försvinna innan vi mäter positionen.
+      nav.classList.remove('open');
       // Tvinga headern till sitt slutgiltiga, hopkrympta läge INNAN vi mäter
       // positionen — annars flyttar sig målet medan sidan animerar dit.
       nav.style.height = NAV_SMALL + 'px';
       if (logoImg) logoImg.style.height = LOGO_SMALL + 'px';
       var heroEl = document.getElementById('hero');
       if (heroEl) heroEl.style.marginTop = NAV_SMALL + 'px';
-      var y = target.getBoundingClientRect().top + window.scrollY - NAV_SMALL;
-      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      requestAnimationFrame(function() {
+        var y = target.getBoundingClientRect().top + window.scrollY - NAV_SMALL;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      });
     });
   });
 
