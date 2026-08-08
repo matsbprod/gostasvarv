@@ -1511,8 +1511,15 @@
       var heroEl = document.getElementById('hero');
       if (heroEl) heroEl.style.marginTop = NAV_SMALL + 'px';
       requestAnimationFrame(function() {
-        var y = target.getBoundingClientRect().top + window.scrollY - NAV_SMALL;
-        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        function scrollToTarget(behavior) {
+          var y = target.getBoundingClientRect().top + window.scrollY - NAV_SMALL;
+          window.scrollTo({ top: Math.max(0, y), behavior: behavior });
+        }
+        scrollToTarget('smooth');
+        // Bilder (loading="lazy") kan ladda in och ändra sidans höjd medan
+        // vi scrollar — korrigera positionen igen efter att de haft tid.
+        setTimeout(function(){ scrollToTarget('auto'); }, 500);
+        setTimeout(function(){ scrollToTarget('auto'); }, 1200);
       });
     });
   });
