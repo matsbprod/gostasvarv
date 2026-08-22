@@ -980,6 +980,16 @@
 </head>
 <body>
 
+<!-- Dolt formulär för Netlify form detection -->
+<form name="medlem" netlify netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="medlem">
+  <input name="bot-field">
+  <input name="namn">
+  <input name="epost">
+  <input name="telefon">
+  <input name="adress">
+</form>
+
 <!-- NAV -->
 <nav id="main-nav" style="">
   <a class="nav-logo" href="#">
@@ -1247,11 +1257,40 @@
       <div class="reveal">
         <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.4rem,2.5vw,2rem); font-weight:900; color:var(--sand-lt); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:2rem;">Hjälp till att stötta föreningen</h2>
         <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin-bottom:1rem;">Vill du vara med och stötta föreningen i sitt arbete med att bevara varvet och en levande varvsmiljö? Då är du hjärtligt välkommen att bli medlem. Medlemsavgiften är <strong style="color:var(--sand-lt)">300 kr per år</strong> för enskild person eller familj.</p>
+
+        <!-- ANMÄLNINGSFORMULÄR -->
+        <form id="medlem-form" style="margin:1.8rem 0 2rem; padding:1.6rem; background:rgba(255,255,255,0.04); border:1px solid rgba(212,196,160,0.18);">
+          <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.2rem;">Anmäl dig som medlem</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+            <div>
+              <label for="m-namn" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">Namn *</label>
+              <input id="m-namn" name="namn" type="text" required style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+            </div>
+            <div>
+              <label for="m-epost" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">E-post *</label>
+              <input id="m-epost" name="epost" type="email" required style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+            </div>
+            <div>
+              <label for="m-telefon" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">Telefon</label>
+              <input id="m-telefon" name="telefon" type="tel" style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+            </div>
+            <div>
+              <label for="m-adress" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">Adress</label>
+              <input id="m-adress" name="adress" type="text" style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+            </div>
+          </div>
+          <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Skicka anmälan</button>
+          <p id="medlem-status" style="font-size:0.85rem; margin-top:0.8rem;"></p>
+        </form>
+
         <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin-bottom:1rem;">Swisha till <strong style="color:var(--sand-lt)">123 268 0270</strong> eller bankgiro <strong style="color:var(--sand-lt)">5427-7892</strong></p>
         <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin-bottom:1.5rem;">Kom ihåg att ange namn, adress, telefonnummer och mailadress. Vi informerar om pågående aktiviteter främst via mail.</p>
         <div style="margin-bottom:1.5rem; text-align:center;">
           <p style="font-size:0.9rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.8rem;">QR-kod för medlemsavgift och övriga betalningar</p>
           <img src="./images/qr_gosta_clean.png" alt="Swish QR-kod" style="width:200px; height:auto; display:inline-block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.3);">
+          <div>
+            <a href="https://app.swish.nu/1/p/sw/?sw=1232680270&amt=300&cur=SEK&msg=Medlemsavgift&edit=amt,msg" class="btn-primary" style="margin-top:1.2rem;">Betala med Swish</a>
+          </div>
         </div>
         <p style="font-size:0.95rem; color:rgba(255,255,255,0.8);">Vill du stötta föreningen ytterligare tar vi gärna emot bidrag som kan sättas in på samma bankgiro- eller swishnummer.</p>
       </div>
@@ -1487,6 +1526,46 @@
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => nav.classList.remove('open'));
   });
+
+  // Medlemsanmälan
+  var medlemForm = document.getElementById('medlem-form');
+  if (medlemForm) {
+    medlemForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var status = document.getElementById('medlem-status');
+      var btn = medlemForm.querySelector('button[type="submit"]');
+      var data = {
+        namn: medlemForm.namn.value.trim(),
+        epost: medlemForm.epost.value.trim(),
+        telefon: medlemForm.telefon.value.trim(),
+        adress: medlemForm.adress.value.trim()
+      };
+      if (!data.namn || !data.epost) {
+        status.style.color = '#e0a06a';
+        status.textContent = 'Namn och e-post är obligatoriskt.';
+        return;
+      }
+      btn.disabled = true;
+      status.style.color = 'rgba(255,255,255,0.7)';
+      status.textContent = 'Skickar...';
+      fetch('/api/medlem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(r) { if (!r.ok) throw new Error('fel'); return r.json(); })
+      .then(function() {
+        status.style.color = '#9fd68a';
+        status.textContent = 'Tack! Din anmälan är mottagen — kolla din inkorg för en bekräftelse.';
+        medlemForm.reset();
+      })
+      .catch(function() {
+        status.style.color = '#e0a06a';
+        status.textContent = 'Något gick fel. Prova igen om en stund, eller maila info@gostasvarv.se.';
+      })
+      .finally(function() { btn.disabled = false; });
+    });
+  }
 
   // Interna ankarlänkar: hoppa direkt till rätt slutposition (headerns
   // slutgiltiga, hopkrympta höjd) istället för webbläsarens inbyggda
