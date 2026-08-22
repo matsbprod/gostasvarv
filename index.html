@@ -164,10 +164,21 @@
     }
 
     /* Endast riktigt smala telefoner får den statiska, hoppressade headern */
+    .medlem-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.7rem 0.8rem;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.1);
+      font-family: inherit;
+      font-size: 16px;
+    }
+
     @media (max-width: 700px) {
       .hero { margin-top: 100px !important; }
       .hero-bg img { min-height: 320px; object-fit: cover; object-position: center; }
       .hero-content { top: auto; bottom: 2rem; transform: none; }
+      .medlem-grid { grid-template-columns: 1fr !important; }
     }
 
     .hero-location {
@@ -1261,22 +1272,22 @@
         <!-- ANMÄLNINGSFORMULÄR -->
         <form id="medlem-form" style="margin:1.8rem 0 2rem; padding:1.6rem; background:rgba(255,255,255,0.04); border:1px solid rgba(212,196,160,0.18);">
           <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1.2rem;">Anmäl dig som medlem</p>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div class="medlem-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
             <div>
               <label for="m-namn" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">Namn *</label>
-              <input id="m-namn" name="namn" type="text" required style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+              <input id="m-namn" name="namn" type="text" required class="medlem-input">
             </div>
             <div>
               <label for="m-epost" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">E-post *</label>
-              <input id="m-epost" name="epost" type="email" required style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+              <input id="m-epost" name="epost" type="email" required class="medlem-input">
             </div>
             <div>
               <label for="m-telefon" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">Telefon</label>
-              <input id="m-telefon" name="telefon" type="tel" style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem;">
+              <input id="m-telefon" name="telefon" type="tel" class="medlem-input">
             </div>
             <div>
               <label for="m-adress" style="display:block; font-size:0.8rem; color:rgba(255,255,255,0.7); margin-bottom:0.3rem;">Adress</label>
-              <textarea id="m-adress" name="adress" rows="2" placeholder="Gatunamn&#10;Postnummer och ort" style="width:100%; box-sizing:border-box; padding:0.6rem 0.7rem; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); font-family:inherit; font-size:0.9rem; resize:vertical;"></textarea>
+              <textarea id="m-adress" name="adress" rows="2" placeholder="Gatunamn&#10;Postnummer och ort" class="medlem-input" style="resize:vertical;"></textarea>
             </div>
           </div>
           <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Skicka anmälan</button>
