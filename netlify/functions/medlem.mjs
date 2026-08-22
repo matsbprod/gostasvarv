@@ -45,10 +45,10 @@ function valkomstmailHtml(namn) {
         <h1 style="font-size:1.4rem; color:#1a1a18; margin:0 0 1.2rem; font-weight:700;">Välkommen till föreningen, ${namn}!</h1>
 
         <p style="font-size:0.98rem; line-height:1.7; color:#3a3830; margin:0 0 1rem;">
-          Tack för din anmälan till Kulturföreningen Gösta Johanssons Varv. Vi har tagit emot dina uppgifter och du är nu registrerad som medlem — vad roligt att du vill vara med!
+          Tack för din anmälan till Kulturföreningen Gösta Johanssons Varv. Vi har tagit emot dina uppgifter och du är nu registrerad som medlem.
         </p>
         <p style="font-size:0.98rem; line-height:1.7; color:#3a3830; margin:0 0 1.5rem;">
-          Föreningen bevarar och utvecklar Göstas varv och det unika kulturarvet av träbåtsbyggande i Kungsviken på Orust. Som medlem är du varmt välkommen att delta i våra arbetsdagar, aktiviteter och gemenskapen kring varvet.
+          Föreningen bevarar och utvecklar Göstas varv och det unika kulturarvet av träbåtsbyggande i Kungsviken på Orust. Som medlem är du välkommen att delta i våra arbetsdagar, aktiviteter och gemenskapen kring varvet.
         </p>
 
         <div style="background:#f4f1e8; border-left:3px solid #a0522d; padding:1.2rem 1.4rem; margin-bottom:1.5rem;">
@@ -61,10 +61,10 @@ function valkomstmailHtml(namn) {
         </div>
 
         <p style="font-size:0.98rem; line-height:1.7; color:#3a3830; margin:0 0 1.5rem;">
-          Vi håller dig uppdaterad om kommande aktiviteter och arbetsdagar via mail. Har du frågor är du alltid välkommen att höra av dig till oss på <a href="mailto:info@gostasvarv.se" style="color:#a0522d;">info@gostasvarv.se</a>.
+          Vi håller dig uppdaterad om kommande aktiviteter och arbetsdagar via mail och hemsida. Har du frågor är du alltid välkommen att höra av dig till oss på <a href="mailto:info@gostasvarv.se" style="color:#a0522d;">info@gostasvarv.se</a>.
         </p>
 
-        <p style="font-size:0.98rem; line-height:1.7; color:#3a3830; margin:0 0 0.3rem;">Varma hälsningar,</p>
+        <p style="font-size:0.98rem; line-height:1.7; color:#3a3830; margin:0 0 0.3rem;">Hälsningar,</p>
         <p style="font-size:0.98rem; line-height:1.7; color:#1a1a18; font-weight:700; margin:0;">Kulturföreningen Gösta Johanssons Varv</p>
       </div>
 
