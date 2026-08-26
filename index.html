@@ -354,6 +354,36 @@
       padding: 0 2.5rem;
     }
 
+    .oppet-varv-recap {
+      width: 100%;
+      background: var(--ink);
+      padding-bottom: 2.5rem;
+    }
+    .oppet-varv-recap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      width: 100%;
+    }
+    .oppet-varv-recap-grid img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      display: block;
+    }
+    .oppet-varv-recap-text {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      padding: 0 2.5rem;
+      text-align: center;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(237, 228, 207, 0.85);
+    }
+    @media (max-width: 780px) {
+      .oppet-varv-recap-grid { grid-template-columns: repeat(2, 1fr); }
+      .oppet-varv-recap-grid img { height: 220px; }
+    }
+
     /* ── ABOUT / HISTORIA ─────────────────────────────── */
     .historia {
       background: var(--pine);
@@ -1080,6 +1110,16 @@
 
 <!-- AKTIVITETER -->
 <section id="aktiviteter">
+  <div class="oppet-varv-recap">
+    <div class="oppet-varv-recap-grid">
+      <img src="./images/2026_1.jpg" alt="Öppet varv 2026">
+      <img src="./images/2026_2.jpg" alt="Öppet varv 2026">
+      <img src="./images/2026_3.jpg" alt="Öppet varv 2026">
+      <img src="./images/2026_4.jpg" alt="Öppet varv 2026">
+    </div>
+    <p class="oppet-varv-recap-text">Bilder från helgens välbesökta &quot;Öppna varv&quot;. Föreningen tackar alla besökare och alla medlemmar och sponsorer som varit med och jobbat under året inklusive Westkust, Bassholmen och övriga båtägare som hade sina båtar vid bryggan.</p>
+  </div>
+
   <div class="section-inner">
     <div class="reveal">
       <div class="section-label" style="color:var(--rust)">Vår/Sommar 2026</div>
