@@ -159,7 +159,7 @@
 
     /* Tablets (iPad m.fl.) behåller den animerade header-krympningen som desktop */
     @media (max-width: 1400px) and (min-width: 701px) {
-      .hero-bg img { min-height: 520px; object-fit: cover; object-position: center; }
+      .hero-bg img { min-height: 520px !important; object-fit: cover; object-position: center; }
       .hero-content { top: auto; bottom: 2rem; transform: none; }
       .hero-location { font-size: 1.6rem !important; }
     }
@@ -177,7 +177,7 @@
 
     @media (max-width: 700px) {
       .hero { margin-top: 100px !important; }
-      .hero-bg img { min-height: 460px; object-fit: cover; object-position: center; }
+      .hero-bg img { min-height: 460px !important; object-fit: cover; object-position: center; }
       .hero-content { top: auto; bottom: 2rem; transform: none; }
       .hero-location { font-size: 1.3rem !important; }
       .medlem-grid { grid-template-columns: 1fr !important; }
